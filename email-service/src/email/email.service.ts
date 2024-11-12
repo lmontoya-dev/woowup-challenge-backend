@@ -9,10 +9,14 @@ export class EmailService {
     @Inject('QueueAdapter') private readonly queueAdapter: QueueAdapter,
   ) {}
 
-  create(createEmailDto: CreateEmailDto, attachments) {
-    this.queueAdapter.saveSendEmail(envs.redisQueueWorkEmail, {
-      ...createEmailDto,
-      attachments,
-    });
+  async create(createEmailDto: CreateEmailDto, attachments) {
+    const { data } = await this.queueAdapter.saveSendEmail(
+      envs.redisQueueWorkEmail,
+      {
+        ...createEmailDto,
+        attachments,
+      },
+    );
+    return data;
   }
 }

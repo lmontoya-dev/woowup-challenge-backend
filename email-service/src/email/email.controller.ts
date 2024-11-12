@@ -30,6 +30,6 @@ export class EmailController {
         attachments.push(urlFile);
       }
     }
-    await this.emailService.create(createEmailDto, attachments);
+    return await this.emailService.create(createEmailDto, attachments);
   }
 }

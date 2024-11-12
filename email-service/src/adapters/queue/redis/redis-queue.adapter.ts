@@ -1,9 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { QueueAdapter, QueueJobOptions } from '../queue.adapter.interface';
+import {
+  EmailJobData,
+  QueueAdapter,
+  QueueJobOptions,
+} from '../queue.adapter.interface';
 import { InjectQueue } from '@nestjs/bull';
-import { Queue } from 'bull';
+import Bull, { Queue } from 'bull';
 import { envs } from 'src/config';
-import { EmailJobData } from 'src/common/interfaces/email-job-data.interface';
 
 @Injectable()
 export class RedisQueueAdapter implements QueueAdapter {
@@ -15,7 +18,10 @@ export class RedisQueueAdapter implements QueueAdapter {
     private readonly emailFailQueue: Queue,
   ) {}
 
-  async saveSendEmail(name: string, message: EmailJobData): Promise<void> {
+  async saveSendEmail(
+    name: string,
+    message: EmailJobData,
+  ): Promise<Bull.Job<any>> {
     return this.addToQueue({
       queue: this.emailQueue,
       name,
@@ -26,7 +32,10 @@ export class RedisQueueAdapter implements QueueAdapter {
     });
   }
 
-  async saveFailEmail(name: string, message: EmailJobData): Promise<void> {
+  async saveFailEmail(
+    name: string,
+    message: EmailJobData,
+  ): Promise<Bull.Job<any>> {
     return this.addToQueue({
       queue: this.emailFailQueue,
       name,
@@ -37,7 +46,7 @@ export class RedisQueueAdapter implements QueueAdapter {
     });
   }
 
-  async addToQueue(options: QueueJobOptions): Promise<void> {
+  async addToQueue(options: QueueJobOptions): Promise<Bull.Job<any>> {
     const { queue, name, message, attempts, backoffDelay, backoffType } =
       options;
     try {
@@ -48,6 +57,7 @@ export class RedisQueueAdapter implements QueueAdapter {
       this.logger.log(
         `Job '${name}' added to queue successfully with ID: ${job.id}`,
       );
+      return job;
     } catch (error) {
       this.logger.error(
         `Failed to add job '${name}' to queue: ${error.message}`,

@@ -5,12 +5,10 @@ import { envs } from 'src/config';
 
 @Module({
   imports: [
-    BullModule.registerQueue({
-      name: envs.redisQueueEmail,
-    }),
-    BullModule.registerQueue({
-      name: envs.redisQueueFailEmail,
-    }),
+    BullModule.registerQueue(
+      { name: envs.redisQueueEmail },
+      { name: envs.redisQueueFailEmail },
+    ),
   ],
   providers: [
     {
