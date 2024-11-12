@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+  
+  email-service:
+    build: ./email-service
+    container_name: email-service
+    ports:
+      - 3000:3000
+    depends_on:
+      - redis
+    env_file:
+      - ./email-service/.env
