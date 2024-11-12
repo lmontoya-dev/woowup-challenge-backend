@@ -110,14 +110,9 @@ The system uses **Redis** as a queue for processing emails in the background. If
 
 If the email fails to send, the system logs the failure in a log file and in the queue for later verification.
 
-## Contributions
 
-If you'd like to contribute to the project, you can do so by following these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/new-feature`).
-3. Make your changes and commit them (`git commit -am 'Added new feature'`).
-4. Submit a pull request.
+### 9. API Documentation
+You can view the full API documentation at the following link: [API Documentation](https://documenter.getpostman.com/view/37414496/2sAY547ePb).
 
 ## License
 
