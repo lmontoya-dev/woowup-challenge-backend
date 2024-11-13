@@ -5,7 +5,10 @@ services:
     image: redis
     ports:
       - 6379:6379
-  
+    networks:
+      - app-network
+    restart: always
+
   email-service:
     build: ./email-service
     container_name: email-service
@@ -15,3 +18,24 @@ services:
       - redis
     env_file:
       - ./email-service/.env
+    networks:
+      - app-network
+    restart: always
+
+  email-sender:
+    build:
+      context: ./email-sender
+    container_name: email-sender
+    ports:
+      - 5173:5173
+    env_file:
+      - ./email-sender/.env
+    networks:
+      - app-network
+    depends_on:
+      - email-service
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
