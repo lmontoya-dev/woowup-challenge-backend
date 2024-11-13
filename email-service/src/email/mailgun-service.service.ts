@@ -25,7 +25,7 @@ export class MailgunServiceService {
     };
 
     try {
-      await this.mailgunClient.messages().send(data);
+      return await this.mailgunClient.messages().send(data);
     } catch (error) {
       throw new Error(`Error en Mailgun: ${error.message}`);
     }

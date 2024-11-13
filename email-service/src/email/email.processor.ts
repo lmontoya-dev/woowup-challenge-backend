@@ -20,11 +20,12 @@ export class EmailProcessor {
   @Process(envs.redisQueueWorkEmail)
   async handleSendEmailJob(job: Job<any>) {
     const emailProviders = [
-      { name: 'SendGrid', service: this.sendGridService },
       { name: 'Mailgun', service: this.mailgunService },
+      { name: 'SendGrid', service: this.sendGridService },
     ];
     for (const provider of emailProviders) {
       try {
+        this.logger.log(`Try send email with ${provider.name}`);
         await provider.service.sendEmail(job.data);
         return;
       } catch (error) {

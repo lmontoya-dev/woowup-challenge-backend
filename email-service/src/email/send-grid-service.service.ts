@@ -18,7 +18,7 @@ export class SendGridServiceService {
       attachments: attachmentFiles,
     };
     try {
-      await sendgrid.send(msg);
+      return await sendgrid.send(msg);
     } catch (error) {
       throw new Error(`Error en SendGrid: ${error.message}`);
     }
