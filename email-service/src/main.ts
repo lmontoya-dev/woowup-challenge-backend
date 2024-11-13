@@ -7,7 +7,7 @@ async function bootstrap() {
   const logger = new Logger('EmailService-Main');
 
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
