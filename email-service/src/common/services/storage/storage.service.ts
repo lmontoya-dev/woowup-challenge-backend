@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class StorageService {
   async uploadFile(file: Express.Multer.File) {
-    const key = uuidv4() + extname(file.originalname);
+    const key = 'attachments/' + uuidv4() + extname(file.originalname);
     const params = {
       Bucket: envs.awsS3Bucket,
       Key: key,
