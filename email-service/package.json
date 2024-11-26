@@ -28,6 +28,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/typeorm": "^10.0.2",
     "@sendgrid/mail": "^8.1.4",
     "bull": "^4.16.4",
     "class-transformer": "^0.5.1",
@@ -35,8 +36,10 @@
     "dotenv": "^16.4.5",
     "joi": "^17.13.3",
     "mailgun-js": "^0.22.0",
+    "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20",
     "uuid": "^11.0.3"
   },
   "devDependencies": {

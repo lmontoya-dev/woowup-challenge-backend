@@ -19,6 +19,9 @@ interface EnvVars {
   SENDGRID_API_KEY: string;
   SEND_FROM_EMAIL: string;
   MAILGUN_DOMAIN: string;
+  DB_PASSWORD: string;
+  DB_USER: string;
+  DB_NAME: string;
 }
 
 const envsSchema = Joi.object({
@@ -38,6 +41,9 @@ const envsSchema = Joi.object({
   SENDGRID_API_KEY: Joi.string().required(),
   SEND_FROM_EMAIL: Joi.string().required(),
   MAILGUN_DOMAIN: Joi.string().required(),
+  DB_PASSWORD: Joi.string().required(),
+  DB_USER: Joi.string().required(),
+  DB_NAME: Joi.string().required(),
 }).unknown(true);
 
 const { error, value } = envsSchema.validate(process.env);
@@ -65,4 +71,7 @@ export const envs = {
   sendgridApiKey: envsVar.SENDGRID_API_KEY,
   emailFrom: envsVar.SEND_FROM_EMAIL,
   mailgunDomain: envsVar.MAILGUN_DOMAIN,
+  dbPassword: envsVar.DB_PASSWORD,
+  dbUser: envsVar.DB_USER,
+  dbName: envsVar.DB_NAME,
 };

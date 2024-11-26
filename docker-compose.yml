@@ -6,7 +6,23 @@ services:
       - 6379:6379
     networks:
       - app-network
+    volumes:
+      - ./data:/data
     restart: always
+
+  db:
+    container_name: postgres-db
+    image: postgres:14.3
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
 
   email-service:
     build: ./email-service
@@ -38,3 +54,7 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  postgres-db:
+    external: false
